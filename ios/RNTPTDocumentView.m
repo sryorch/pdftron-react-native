@@ -6221,7 +6221,7 @@ NS_ASSUME_NONNULL_END
     [self applyViewerSettings];
 }
 
-- (NSDictionary *)addAnnotation:type:(NSString *)type x1:(NSInteger)x1 y1:(NSInteger)y1 x2:(NSInteger)x2 y2:(NSInteger)y2;
+- (NSDictionary *)addAnnotation:(NSString *)type x1:(NSNumber *)x1 y1:(NSNumber *)y1 x2:(NSNumber *)x2 y2:(NSNumber *)y2;
 {
     PTPDFViewCtrl *pdfViewCtrl = self.currentDocumentViewController.pdfViewCtrl;
     if (!pdfViewCtrl) {
