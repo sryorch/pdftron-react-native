@@ -6272,6 +6272,83 @@ NS_ASSUME_NONNULL_END
     }
 }
 
+- (void)searchFor:(NSString * _Nonnull)pattern;
+{
+    @autoreleasepool {
+        PTPDFViewCtrl *pdfViewCtrl = self.currentDocumentViewController.pdfViewCtrl;
+        if (!pdfViewCtrl) {
+            return;
+        }
+        
+        @try
+        {
+            PTPDFDoc *doc = [pdfViewCtrl GetDoc];
+            [doc InitSecurityHandler];
+
+            PTTextSearch *txt_search = [[PTTextSearch alloc] init];
+            unsigned int mode = e_ptwhole_word | e_ptpage_stop | e_ptreg_expression | e_pthighlight;
+
+            //call Begin() method to initialize the text search.
+            [txt_search Begin: doc pattern: pattern mode: mode start_page: -1 end_page: -1];
+
+            int step = 0;
+            
+            //call Run() method iteratively to find all matching instances.
+            while ( YES )
+            {
+                PTSearchResult *result = [txt_search Run];
+                
+                if ( result )
+                {
+                    NSLog(@" %@", [result GetMatch]);
+
+                    PTHighlights *hlts = [result GetHighlights];
+                    [hlts Begin: doc];
+                    while ( [hlts HasNext] )
+                    {
+                        NSLog(@"The current highlight is from page: %d", [hlts GetCurrentPageNumber]);
+                        PTPage *cur_page = [doc GetPage: [hlts GetCurrentPageNumber]];
+                        PTVectorQuadPoint *quads = [hlts GetCurrentQuads];
+                        int i = 0;
+                        for ( ; i < [quads size]; ++i )
+                        {
+                            //assume each quad is an axis-aligned rectangle
+                            PTQuadPoint *q = [quads get: i];
+                            double x1 = MIN(MIN(MIN([[q getP1] getX], [[q getP2] getX]), [[q getP3] getX]), [[q getP4] getX]);
+                            double x2 = MAX(MAX(MAX([[q getP1] getX], [[q getP2] getX]), [[q getP3] getX]), [[q getP4] getX]);
+                            double y1 = MIN(MIN(MIN([[q getP1] getY], [[q getP2] getY]), [[q getP3] getY]), [[q getP4] getY]);
+                            double y2 = MAX(MAX(MAX([[q getP1] getY], [[q getP2] getY]), [[q getP3] getY]), [[q getP4] getY]);
+                            PTPDFRect * rect = [[PTPDFRect alloc] initWithX1: x1 y1: y1 x2: x2 y2: y2];
+                            PTAction *action = [PTAction CreateURI: [doc GetSDFDoc] uri: @"http://www.pdftron.com"];
+
+                            PTLink *hyper_link = [PTLink CreateWithAction: [doc GetSDFDoc] pos: rect action: action];
+                            [cur_page AnnotPushBack: hyper_link];
+                        }
+                        [hlts Next];
+                    }
+
+                }
+
+                else if ( [result IsPageEnd] )
+                {
+                    //you can update your UI here, if needed
+                }
+
+                else
+                {
+                    break;
+                }
+            }
+        }
+
+        @catch(NSException *e)
+        {
+            NSLog(@"%@", e.reason);
+            ret = 1;
+        }
+    }
+}
+
 @end
 
 #pragma mark - RNTPTThumbnailsViewController
