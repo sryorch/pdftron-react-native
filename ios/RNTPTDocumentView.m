@@ -6272,7 +6272,7 @@ NS_ASSUME_NONNULL_END
     }
 }
 
-- (void)searchFor:(NSString * _Nonnull)pattern;
+- (void)searchText:(NSString * _Nonnull)pattern;
 {
     @autoreleasepool {
         PTPDFViewCtrl *pdfViewCtrl = self.currentDocumentViewController.pdfViewCtrl;
@@ -6290,8 +6290,6 @@ NS_ASSUME_NONNULL_END
 
             //call Begin() method to initialize the text search.
             [txt_search Begin: doc pattern: pattern mode: mode start_page: -1 end_page: -1];
-
-            int step = 0;
             
             //call Run() method iteratively to find all matching instances.
             while ( YES )
@@ -6344,7 +6342,6 @@ NS_ASSUME_NONNULL_END
         @catch(NSException *e)
         {
             NSLog(@"%@", e.reason);
-            ret = 1;
         }
     }
 }

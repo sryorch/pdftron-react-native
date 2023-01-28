@@ -44,21 +44,22 @@ export default class App extends Component<Props> {
 
   onDocumentLoaded = () => {
     if (this._viewer) {
-        this._viewer.addAnnotation('Text', 'text1', 2, 40, 40, 400, 80)
-        .then((onFullfiled) => {
-          console.log('onFullfiled', onFullfiled);
-        })
-        .catch((error) => {
-          console.log('error', error);
-        })
+      this._viewer.searchText('Overvi')
+        // this._viewer.addAnnotation('Text', 'text1', 2, 40, 40, 400, 80)
+        // .then((onFullfiled) => {
+        //   console.log('onFullfiled', onFullfiled);
+        // })
+        // .catch((error) => {
+        //   console.log('error', error);
+        // })
 
-        this._viewer.addAnnotation('Text', 'text2', 1, 40, 40, 400, 80)
-        .then((onFullfiled) => {
-          console.log('onFullfiled', onFullfiled);
-        })
-        .catch((error) => {
-          console.log('error', error);
-        })
+        // this._viewer.addAnnotation('Text', 'text2', 1, 40, 40, 400, 80)
+        // .then((onFullfiled) => {
+        //   console.log('onFullfiled', onFullfiled);
+        // })
+        // .catch((error) => {
+        //   console.log('error', error);
+        // })
 
         this._viewer.addAnnotation('Sign', 'signature1', 1, 40, 100, 600, 200)
         .then((onFullfiled) => {
@@ -68,13 +69,13 @@ export default class App extends Component<Props> {
           console.log('error', error);
         })
 
-        this._viewer.addAnnotation('Sign', 'signature2', 2, 40, 100, 600, 200)
-        .then((onFullfiled) => {
-          console.log('onFullfiled', onFullfiled);
-        })
-        .catch((error) => {
-          console.log('error', error);
-        })
+        // this._viewer.addAnnotation('Sign', 'signature2', 2, 40, 100, 600, 200)
+        // .then((onFullfiled) => {
+        //   console.log('onFullfiled', onFullfiled);
+        // })
+        // .catch((error) => {
+        //   console.log('error', error);
+        // })
     }
   }
 
