@@ -2013,11 +2013,11 @@ RCT_CUSTOM_VIEW_PROPERTY(signatureTypes, NSArray, RNTPTDocumentView)
     }
 }
 
-- (void)searchTextOnDocument:(NSNumber *_Nonnull)tag pattern:(NSString * _Nonnull)pattern;
+- (NSMutableArray *)searchTextOnDocument:(NSNumber *_Nonnull)tag pattern:(NSString * _Nonnull)pattern;
 {
     RNTPTDocumentView *documentView = self.documentViews[tag];
     if (documentView) {
-        [documentView searchText:pattern];
+        return [documentView searchText:pattern];
     } else {
         @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"Unable to search text" userInfo:nil];
     }

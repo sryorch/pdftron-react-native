@@ -1454,8 +1454,8 @@ RCT_REMAP_METHOD(searchText,
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
     @try {
-        [[self documentViewManager] searchTextOnDocument:tag pattern:pattern];
-        resolve(nil);
+        NSMutableArray *matches = [[self documentViewManager] searchTextOnDocument:tag pattern:pattern];
+        resolve(matches);
     }
     @catch (NSException *exception) {
         reject(@"search_text", @"Failed to search text", [self errorFromException:exception]);
