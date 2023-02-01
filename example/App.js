@@ -44,39 +44,29 @@ export default class App extends Component<Props> {
 
   onDocumentLoaded = () => {
     if (this._viewer) {
-        this._viewer.addAnnotation('Text', 'text1', 2, 40, 40, 400, 80)
-        .then((onFullfiled) => {
-          console.log('onFullfiled', onFullfiled);
-        })
-        .catch((error) => {
-          console.log('error', error);
-        })
+      this._viewer
+        .searchText('PDF')
+        .then(matches => {
+          for (let i = 0; i < matches.length; i++) {
+            const match = matches[i];
+            const quads = match.quads[0]; // Upper-left corner
 
-        this._viewer.addAnnotation('Text', 'text2', 1, 40, 40, 400, 80)
-        .then((onFullfiled) => {
-          console.log('onFullfiled', onFullfiled);
+            this._viewer.addAnnotation(
+              'Sign',
+              'signatures',
+              match.pageNumber,
+              quads.x1,
+              quads.y1,
+              quads.x2,
+              quads.y2,
+            );
+          }
         })
         .catch((error) => {
-          console.log('error', error);
-        })
-
-        this._viewer.addAnnotation('Sign', 'signature1', 1, 40, 100, 600, 200)
-        .then((onFullfiled) => {
-          console.log('onFullfiled', onFullfiled);
-        })
-        .catch((error) => {
-          console.log('error', error);
-        })
-
-        this._viewer.addAnnotation('Sign', 'signature2', 2, 40, 100, 600, 200)
-        .then((onFullfiled) => {
-          console.log('onFullfiled', onFullfiled);
-        })
-        .catch((error) => {
-          console.log('error', error);
-        })
+          console.error('error', error);
+        });
     }
-  }
+  };
 
   onAnnotationChanged = ({action, annotations}) => {
     // console.log('action', action);

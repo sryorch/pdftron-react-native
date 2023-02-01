@@ -1446,4 +1446,19 @@ RCT_REMAP_METHOD(addAnnotation,
         reject(@"set_value_for_fields", @"Failed to set value on fields", [self errorFromException:exception]);
     }
 }
+
+RCT_REMAP_METHOD(searchText,
+                 searchTextOnDocument:(NSNumber * _Nonnull)tag 
+                 pattern:(NSString * _Nonnull)pattern
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        NSMutableArray *matches = [[self documentViewManager] searchTextOnDocument:tag pattern:pattern];
+        resolve(matches);
+    }
+    @catch (NSException *exception) {
+        reject(@"search_text", @"Failed to search text", [self errorFromException:exception]);
+    }
+}
 @end

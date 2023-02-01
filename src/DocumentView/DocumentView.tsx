@@ -1259,6 +1259,14 @@ export class DocumentView extends PureComponent<DocumentViewProps, any> {
     return Promise.resolve();
   }
 
+  searchText = (pattern: string): Promise<void | {id: string}> => {
+    const tag = findNodeHandle(this._viewerRef);
+    if(tag != null) {
+      return DocumentViewManager.searchText(tag, pattern);
+    }
+    return Promise.resolve();
+  }
+
   _setNativeRef = (ref: any) => {
     this._viewerRef = ref;
   };

@@ -6272,6 +6272,98 @@ NS_ASSUME_NONNULL_END
     }
 }
 
+- (NSMutableArray *)searchText:(NSString * _Nonnull)pattern;
+{
+    @autoreleasepool {
+        NSMutableArray *matches = [[NSMutableArray alloc]init];
+
+        PTPDFViewCtrl *pdfViewCtrl = self.currentDocumentViewController.pdfViewCtrl;
+        if (!pdfViewCtrl) {
+            return matches;
+        }
+
+        @try
+        {
+            PTPDFDoc *doc = [pdfViewCtrl GetDoc];
+            [doc InitSecurityHandler];
+
+            PTTextSearch *txt_search = [[PTTextSearch alloc] init];
+            unsigned int mode = e_ptreg_expression | e_ptambient_string | e_ptpage_stop | e_pthighlight;
+
+            //call Begin() method to initialize the text search.
+            [txt_search Begin: doc pattern: pattern mode: mode start_page: -1 end_page: -1];
+            
+            //call Run() method iteratively to find all matching instances.
+            while ( YES )
+            {
+                PTSearchResult *result = [txt_search Run];
+                if ( [result GetMatch] )
+                {
+                    NSMutableDictionary *foundMap = [[NSMutableDictionary alloc] initWithCapacity:2];
+                    [foundMap setValue:[NSNumber numberWithInt:[result GetPageNumber]] forKey:@"pageNumber"];
+
+                    NSLog(@"result: %@", [result GetMatch]);
+
+                    PTHighlights *hlts = [result GetHighlights];
+                    [hlts Begin: doc];
+                    while ( [hlts HasNext] )
+                    {
+                        NSLog(@"The current highlight is from page: %d", [hlts GetCurrentPageNumber]);
+                        PTPage *cur_page = [doc GetPage: [hlts GetCurrentPageNumber]];
+                        PTVectorQuadPoint *quads = [hlts GetCurrentQuads];
+                        int i = 0;
+                        NSMutableArray *foundQuads = [[NSMutableArray alloc] initWithCapacity:[quads size]];
+                        
+                        for ( ; i < [quads size]; ++i )
+                        {
+                            NSMutableDictionary *pointMap = [[NSMutableDictionary alloc] initWithCapacity:4];
+                            //assume each quad is an axis-aligned rectangle
+                            PTQuadPoint *q = [quads get: i];
+                            double x1 = MIN(MIN(MIN([[q getP1] getX], [[q getP2] getX]), [[q getP3] getX]), [[q getP4] getX]);
+                            double x2 = MAX(MAX(MAX([[q getP1] getX], [[q getP2] getX]), [[q getP3] getX]), [[q getP4] getX]);
+                            double y1 = MIN(MIN(MIN([[q getP1] getY], [[q getP2] getY]), [[q getP3] getY]), [[q getP4] getY]);
+                            double y2 = MAX(MAX(MAX([[q getP1] getY], [[q getP2] getY]), [[q getP3] getY]), [[q getP4] getY]);
+
+                            [pointMap setValue:[NSNumber numberWithDouble:x1] forKey:@"x1"];
+                            [pointMap setValue:[NSNumber numberWithDouble:x2] forKey:@"x2"];
+                            [pointMap setValue:[NSNumber numberWithDouble:y1] forKey:@"y1"];
+                            [pointMap setValue:[NSNumber numberWithDouble:y2] forKey:@"y2"];
+
+                            [foundQuads addObject:pointMap];
+                            
+                        }
+                        [hlts Next];
+                    }
+                    
+                    [foundMap setValue:[NSNumber numberWithInt:[result GetPageNumber]] forKey:@"quads"];
+
+                    [matches addObject:[foundMap copy]];
+                }
+
+                else if ( [result IsPageEnd] )
+                {
+                    NSLog(@"page end");
+                    //you can update your UI here, if needed
+                }
+
+                else
+                {
+                    NSLog(@"while break");
+                    break;
+                }
+            }
+            
+            
+            return matches;
+        }
+
+        @catch(NSException *e)
+        {
+            NSLog(@"%@", e.reason);
+        }
+    }
+}
+
 @end
 
 #pragma mark - RNTPTThumbnailsViewController
