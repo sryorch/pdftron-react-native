@@ -6332,10 +6332,9 @@ NS_ASSUME_NONNULL_END
                             [foundQuads addObject:pointMap];
                             
                         }
+                        [foundMap setValue:[foundQuads copy] forKey:@"quads"];
                         [hlts Next];
                     }
-                    
-                    [foundMap setValue:[NSNumber numberWithInt:[result GetPageNumber]] forKey:@"quads"];
 
                     [matches addObject:[foundMap copy]];
                 }

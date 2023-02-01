@@ -1259,7 +1259,7 @@ export class DocumentView extends PureComponent<DocumentViewProps, any> {
     return Promise.resolve();
   }
 
-  searchText = (pattern: string): Promise<void | {id: string}> => {
+  searchText = (pattern: string): Promise<void | Array<AnnotOptions.Match>> => {
     const tag = findNodeHandle(this._viewerRef);
     if(tag != null) {
       return DocumentViewManager.searchText(tag, pattern);

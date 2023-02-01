@@ -85,3 +85,14 @@ export type TypedSignature = 1;
 export type ImageSignature = 2;
 
 export type SignatureType = DrawnSignature | TypedSignature | ImageSignature;
+
+export interface MatchQuad {
+    x1: number;
+    y1: number;
+    x2: number;
+    y3: number;
+}
+export interface Match {
+    pageNumber: number;
+    quads: MatchQuad;
+}
