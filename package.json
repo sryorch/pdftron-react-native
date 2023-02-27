@@ -16,8 +16,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sryorch/pdftron-react-native.git",
-    "baseUrl": "https://github.com/sryorch/pdftron-react-native"
+    "url": "git+https://github.com/teamairship/pdftron-react-native.git",
+    "baseUrl": "https://github.com/teamairship/pdftron-react-native"
   },
   "license": "SEE LICENSE IN LICENSE",
   "homepage": "https://www.pdftron.com/documentation/mobile/#frameworks",
