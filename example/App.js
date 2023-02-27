@@ -53,13 +53,22 @@ export default class App extends Component<Props> {
 
             this._viewer.addAnnotation(
               'Sign',
-              'signatures',
+              `signatures-${i}`,
               match.pageNumber,
               quads.x1,
               quads.y1,
               quads.x2,
               quads.y2,
             );
+
+            setTimeout(() => {
+              this._viewer.deleteAnnotations([
+                {
+                  id: `signatures-${i}`,
+                  pageNumber: match.pageNumber,
+                }
+              ]);
+            }, 1000 * i);
           }
         })
         .catch((error) => {
@@ -70,7 +79,7 @@ export default class App extends Component<Props> {
 
   onAnnotationChanged = ({action, annotations}) => {
     // console.log('action', action);
-    // console.log('annotations', annotations);
+    console.log('annotations', annotations);
     // if (this._viewer) {
     //   this._viewer.exportAnnotations({annotList: annotations}).then((xfdf) => {
     //     console.log('xfdf for annotations', xfdf);
@@ -85,6 +94,10 @@ export default class App extends Component<Props> {
   onExportAnnotationCommand = ({action, xfdfCommand}) => {
     console.log('action', action);
     console.log('xfdfCommand', xfdfCommand);
+  }
+
+  onAnnotationChanged = (prop) => {
+    console.log('prop', prop);
   }
 
   setStampImageData = ({annotationId, pageNumber, stampImageDataUrl}) => {
@@ -105,6 +118,7 @@ export default class App extends Component<Props> {
     return (
       <DocumentView
           ref={(c) => this._viewer = c}
+          onAnnotationChanged={this.onAnnotationChanged}
           hideDefaultAnnotationToolbars={[
             Config.DefaultToolbars.Annotate,
             Config.DefaultToolbars.Draw,
