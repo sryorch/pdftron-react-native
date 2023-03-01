@@ -6252,6 +6252,15 @@ NS_ASSUME_NONNULL_END
     if ([type isEqualToString:@"Text"]) {
         PTField *text_field = [doc FieldCreateWithString: fieldName type: e_pttext field_value: @"" def_field_value: @""];
         PTTextWidget *text = [PTTextWidget CreateWithField: doc pos: [[PTPDFRect alloc] initWithX1:x1 y1:y1 x2:x2 y2:y2] field: text_field];
+
+        UIColor *color = [UIColor colorWithRed:0.72 green:0.77 blue:0.78 alpha:1.0];
+        
+        int componentCount;
+        PTColorPt *bgColor = [PTColorPt colorFromUIColor:color componentCount:&componentCount];
+
+        [text SetBackgroundColor:bgColor compnum:componentCount];
+        [text RefreshAppearance];
+        
         [text SetUniqueIDWithString:fieldName];
         [text RefreshAppearance];
         [annots PushBack:text];
@@ -6261,11 +6270,7 @@ NS_ASSUME_NONNULL_END
         PTDigitalSignatureField *sig_field = [doc CreateDigitalSignatureField: fieldName];
         PTSignatureWidget *signature = [PTSignatureWidget CreateWithDigitalSignatureField: doc pos: [[PTPDFRect alloc] initWithX1:x1 y1:y1 x2:x2 y2:y2] field: sig_field];
         
-        PTColorPt *color = [[PTColorPt alloc] initWithX: 0 y: 1 z: 0 w: 0];
-        
         [signature SetUniqueIDWithString:fieldName];
-        [signature SetBackgroundColor: color compnum:3];
-        [signature SetContents: @"Dashed Captioned"];
         [signature RefreshAppearance];
         
         [annots PushBack: signature];
