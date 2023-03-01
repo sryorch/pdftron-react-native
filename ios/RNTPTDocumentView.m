@@ -6260,19 +6260,15 @@ NS_ASSUME_NONNULL_END
     if ([type isEqualToString: @"Sign"]) {
         PTDigitalSignatureField *sig_field = [doc CreateDigitalSignatureField: fieldName];
         PTSignatureWidget *signature = [PTSignatureWidget CreateWithDigitalSignatureField: doc pos: [[PTPDFRect alloc] initWithX1:x1 y1:y1 x2:x2 y2:y2] field: sig_field];
-
-        // ----------------------------------------------------------
-        // Add JPEG image to the output file
-        PTSDFDoc *imageDoc = [doc GetSDFDoc];
-        NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"sign-here" ofType:@"jpg"];
-        PTImage *img = [PTImage Create:imageDoc filename:imagePath];
-
+        
+        PTColorPt *color = [[PTColorPt alloc] initWithX: 0 y: 1 z: 0 w: 0];
+        
         [signature SetUniqueIDWithString:fieldName];
-        [signature CreateSignatureAppearance: img];
+        [signature SetBackgroundColor: color compnum:3];
+        [signature SetContents: @"Dashed Captioned"];
         [signature RefreshAppearance];
-
-        [annots PushBack:signature];
-        [signature RefreshAppearance];
+        
+        [annots PushBack: signature];
     }
 }
 
