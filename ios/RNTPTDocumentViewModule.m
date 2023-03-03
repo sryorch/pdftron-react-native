@@ -1477,4 +1477,20 @@ RCT_REMAP_METHOD(searchText,
         reject(@"search_text", @"Failed to search text", [self errorFromException:exception]);
     }
 }
+
+RCT_REMAP_METHOD(setSignaturesHighlightColor,
+                 setSignaturesHighlightColorForDocumentViewTag:(nonnull NSNumber *)tag
+                 signatureHighlightColor:(NSDictionary *)signatureHighlightColor
+
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        [[self documentViewManager] setSignaturesHighlightColorForDocumentViewTag:tag signatureHighlightColor:signatureHighlightColor];
+        resolve(nil);
+    }
+    @catch (NSException *exception) {
+        reject(@"set_form_field_highlight_color", @"Failed to set form field highlight color", [self errorFromException:exception]);
+    }
+}
 @end

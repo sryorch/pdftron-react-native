@@ -200,4 +200,5 @@
 - (void)setFormFieldHighlightColorForDocumentViewTag:(NSNumber *)tag fieldHighlightColor:(NSDictionary *)fieldHighlightColor;
 - (void)addAnnotationToDocument:(NSNumber *_Nonnull)tag type:(NSString *_Nonnull)type fieldName:(NSString *_Nonnull)fieldName pageNumber:(int)pageNumber x1:(double)x1 y1:(double)y1 x2:(double)x2 y2:(double)y2;
 - (NSMutableArray *)searchTextOnDocument:(NSNumber *_Nonnull)tag pattern:(NSString * _Nonnull)pattern;
+- (void)setSignaturesHighlightColorForDocumentViewTag:(NSNumber *)tag signatureHighlightColor:(NSDictionary *)signatureHighlightColor;
 @end
