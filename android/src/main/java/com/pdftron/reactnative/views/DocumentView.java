@@ -2363,7 +2363,7 @@ public class DocumentView extends com.pdftron.pdf.controls.DocumentView2 {
         annotPair.putInt(KEY_ANNOTATION_PAGE, pageNumber);
         // try to obtain bbox and type
         try {
-            annotPair.putString(KEY_ANNOTATION_TYPE, convAnnotTypeToString(annot.getType()));
+            annotPair.putString(KEY_ANNOTATION_TYPE, convAnnotTypeToString(AnnotUtils.getAnnotType(annot)));
             // screen rect
             com.pdftron.pdf.Rect screenRect = getPdfViewCtrl().getScreenRectForAnnot(annot, pageNumber);
             WritableMap screenRectMap = Arguments.createMap();
@@ -4548,6 +4548,16 @@ public class DocumentView extends com.pdftron.pdf.controls.DocumentView2 {
         return colorNumber;
     }
 
+    private ColorPt convertRGBAToColorPt(ReadableMap color) throws PDFNetException {
+        double red = (double) (color.getInt(COLOR_RED) / 255f);
+        double green = (double) (color.getInt(COLOR_GREEN) / 255f);
+        double blue = (double) (color.getInt(COLOR_BLUE) / 255f);
+        double alpha = (double) (color.getInt(COLOR_ALPHA) / 255f);
+        ColorPt colorPt = new ColorPt(red, green, blue, alpha);
+
+        return colorPt;
+    }
+
     public void startSearchMode(String searchString, boolean matchCase, boolean matchWholeWord) {
         PdfViewCtrlTabFragment2 fragment = getPdfViewCtrlTabFragment();
         if (fragment != null) {
@@ -4946,6 +4956,14 @@ public class DocumentView extends com.pdftron.pdf.controls.DocumentView2 {
             }
         });
     }
+
+    public void setFormFieldHighlightColor(ReadableMap fieldHighlightColor) throws PDFNetException {
+        if (getPdfViewCtrl() != null && fieldHighlightColor != null) {
+            getPdfViewCtrl().setFieldHighlightColor(convertRGBAToColorPt(fieldHighlightColor));
+            getPdfViewCtrl().update(true);
+        }
+    }
+
 
     public void setSaveStateEnabled(boolean saveStateEnabled) {
         mSaveStateEnabled = saveStateEnabled;

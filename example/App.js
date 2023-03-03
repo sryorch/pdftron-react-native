@@ -61,14 +61,6 @@ export default class App extends Component<Props> {
               quads.y2,
             );
 
-            setTimeout(() => {
-              this._viewer.deleteAnnotations([
-                {
-                  id: `signatures-${i}`,
-                  pageNumber: match.pageNumber,
-                }
-              ]);
-            }, 1000 * i);
           }
         })
         .catch((error) => {

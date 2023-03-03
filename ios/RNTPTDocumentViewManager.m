@@ -1709,6 +1709,16 @@ RCT_CUSTOM_VIEW_PROPERTY(signatureTypes, NSArray, RNTPTDocumentView)
     }
 }
 
+- (void)setFormFieldHighlightColorForDocumentViewTag:(NSNumber *)tag fieldHighlightColor:(NSDictionary *)fieldHighlightColor
+{
+    RNTPTDocumentView *documentView = self.documentViews[tag];
+    if (documentView) {
+        [documentView setFormFieldHighlightColor:fieldHighlightColor];
+    } else {
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"Unable to get field for tag" userInfo:nil];
+    }
+}
+
 
 #pragma mark - Coordination
 
