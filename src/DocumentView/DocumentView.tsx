@@ -1274,6 +1274,14 @@ export class DocumentView extends PureComponent<DocumentViewProps, any> {
     return Promise.resolve();
   }
 
+  setSignaturesHighlightColor = (signaturesHighlightColor: AnnotOptions.ColorWithAlpha): Promise<void> => {
+    const tag = findNodeHandle(this._viewerRef);
+    if (tag != null) {
+      return DocumentViewManager.setSignaturesHighlightColor(tag, signaturesHighlightColor);
+    }
+    return Promise.resolve();
+  }
+
   _setNativeRef = (ref: any) => {
     this._viewerRef = ref;
   };

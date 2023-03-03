@@ -6371,6 +6371,17 @@ NS_ASSUME_NONNULL_END
         [pdfViewCtrl Update:YES];
     }
 }
+
+- (void)setSignaturesHighlightColor:(NSDictionary *)signaturesHighlightColor
+{
+    PTPDFViewCtrl *pdfViewCtrl = _documentViewController.pdfViewCtrl;
+    
+    if (pdfViewCtrl) {
+        UIColor *combinedColor = [self convertRGBAToUIColor:signaturesHighlightColor];
+        [pdfViewCtrl SetSignatureHighlightColor:combinedColor];
+        [pdfViewCtrl Update:YES];
+    }
+}
 @end
 
 #pragma mark - RNTPTThumbnailsViewController

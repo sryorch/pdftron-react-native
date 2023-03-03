@@ -740,6 +740,7 @@ static NSString * const PTSignaturesManager_signatureDirectory = @"PTSignaturesM
 - (void)setFormFieldHighlightColor:(NSDictionary *)fieldHighlightColor;
 - (void)addAnnotation:(NSString *_Nonnull)type fieldName:(NSString *_Nonnull)fieldName pageNumber:(int)pageNumber x1:(double)x1 y1:(double)y1 x2:(double)x2 y2:(double)y2;
 - (NSMutableArray *)searchText:(NSString *_Nonnull)pattern;
+- (void)setSignaturesHighlightColor:(NSDictionary *)signaturesHighlightColor;
 @end
 
 @interface RNTPTThumbnailsViewController : PTThumbnailsViewController
