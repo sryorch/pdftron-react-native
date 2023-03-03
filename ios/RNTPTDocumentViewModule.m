@@ -1426,6 +1426,22 @@ RCT_REMAP_METHOD(setStampImageData,
     }
 }
 
+RCT_REMAP_METHOD(setFormFieldHighlightColor,
+                 setFormFieldHighlightColorForDocumentViewTag:(nonnull NSNumber *)tag
+                 fieldHighlightColor:(NSDictionary *)fieldHighlightColor
+
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        [[self documentViewManager] setFormFieldHighlightColorForDocumentViewTag:tag fieldHighlightColor:fieldHighlightColor];
+        resolve(nil);
+    }
+    @catch (NSException *exception) {
+        reject(@"set_form_field_highlight_color", @"Failed to set form field highlight color", [self errorFromException:exception]);
+    }
+}
+
 RCT_REMAP_METHOD(addAnnotation,
                  addAnnotationToDocument:(NSNumber * _Nonnull)tag 
                  type:(NSString * _Nonnull)type

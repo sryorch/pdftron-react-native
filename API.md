@@ -699,14 +699,17 @@ Defines whether preset bar is hidden or not
 #### annotationToolbars
 array of [`Config.DefaultToolbars`](./src/Config/Config.ts) constants or custom toolbar objects, optional, defaults to none
 
-Defines custom toolbars. If passed in, the default toolbars will no longer appear.
+Defines custom toolbars. If passed in, the default toolbars will no longer appear. When indicating the icon of a custom toolbar item, ensure that the resource for either Android or iOS exists.
 It is possible to mix and match with default toolbars. See example below:
 
 ```js
 const myToolItem = {
   [Config.CustomToolItemKey.Id]: 'add_page',
   [Config.CustomToolItemKey.Name]: 'Add page',
-  [Config.CustomToolItemKey.Icon]: 'ic_add_blank_page_white',
+  // An example of custom Android icon:
+  [Config.CustomToolItemKey.Icon]: 'ic_add_blank_page_white', 
+  // An example of custom iOS icon:
+  //[Config.CustomToolItemKey.Icon]: 'pencil.circle', 
 };
 
 const myToolbar = {
@@ -3944,4 +3947,17 @@ Requires followSystemDarkMode={false} in order for functionality of this prop
 <DocumentView
   forceAppTheme={Config.ThemeOptions.ThemeDark}
 />
+```
+
+#### setFormFieldHighlightColor
+Sets the form field's highlight color on the PDF.
+
+Parameters:
+
+Name | Type | Description
+--- | --- | ---
+fieldHightlightColor | object | the form field highlight color, in the format `{red: number, green: number, blue: number, alpha: number}`, each number in range [0, 255]
+
+```js
+this._viewer.setFormFieldHighlightColor({red: 0, green: 0, blue: 255, alpha: 128}); // blue color
 ```
