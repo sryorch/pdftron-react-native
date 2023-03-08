@@ -6241,13 +6241,7 @@ NS_ASSUME_NONNULL_END
     }
     
     PTPDFDoc *doc = [pdfViewCtrl GetDoc];
-    PTPage* page = [[doc GetPageIterator: pageNumber] Current];
-    PTObj* annots = [page GetAnnots];
-
-    if (!annots) {
-        annots = [doc CreateIndirectArray];  
-        [[page GetSDFObj] Put: @"Annots" obj:annots];
-    }
+    PTPage *page = [doc GetPage:pageNumber];
     
     if ([type isEqualToString:@"Text"]) {
         PTField *text_field = [doc FieldCreateWithString: fieldName type: e_pttext field_value: @"" def_field_value: @""];
@@ -6255,7 +6249,7 @@ NS_ASSUME_NONNULL_END
         
         [text SetUniqueIDWithString:fieldName];
         [text RefreshAppearance];
-        [annots PushBack:text];
+        [page AnnotPushBack:text];
     }
 
     if ([type isEqualToString: @"Sign"]) {
@@ -6264,7 +6258,7 @@ NS_ASSUME_NONNULL_END
         
         [signature SetUniqueIDWithString:fieldName];
         [signature RefreshAppearance];
-        [annots PushBack: signature];
+        [page AnnotPushBack: signature];
     }
 
     [pdfViewCtrl Update:YES];
