@@ -23,10 +23,7 @@
 }
 
 // The swizzled method
-- (PTPDFDoc *)swizzled_createSignature:(NSMutableArray *)points withStrokeColor:(UIColor *)strokeColor withStrokeThickness:(CGFloat)thickness withinRect:(CGRect)rect saveSignature:(BOOL)saveSignature {
-    
-    // Your custom logic here
-    
+- (PTPDFDoc *)swizzled_createSignature:(NSMutableArray *)points withStrokeColor:(UIColor *)strokeColor withStrokeThickness:(CGFloat)thickness withinRect:(CGRect)rect saveSignature:(BOOL)saveSignature {    
     // Call the original method (which is now `swizzled_createSignature:` because we've exchanged their implementations)
     return [self swizzled_createSignature:points withStrokeColor:strokeColor withStrokeThickness:15.0 withinRect:rect saveSignature:saveSignature];
 }
