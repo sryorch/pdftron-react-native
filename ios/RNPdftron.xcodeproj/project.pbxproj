@@ -14,6 +14,7 @@
 		CE0885F920E2CACB00AB7A9B /* RNTPTPDFViewCtrlManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE0885F820E2CACB00AB7A9B /* RNTPTPDFViewCtrlManager.m */; };
 		D30BB17922EFA8D000D90D24 /* RNTPTDocumentViewModule.m in Sources */ = {isa = PBXBuildFile; fileRef = D30BB17822EFA8D000D90D24 /* RNTPTDocumentViewModule.m */; };
 		D9430A482AA73CC200767E1D /* UIViewController+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = D9430A472AA73CC200767E1D /* UIViewController+Swizzling.m */; };
+		D9FE7C232AA7B5E200C0B6CE /* PTSignaturesManager+Swizzling.m in Sources */ = {isa = PBXBuildFile; fileRef = D9FE7C222AA7B5E200C0B6CE /* PTSignaturesManager+Swizzling.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -44,6 +45,8 @@
 		D30BB17822EFA8D000D90D24 /* RNTPTDocumentViewModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNTPTDocumentViewModule.m; sourceTree = "<group>"; };
 		D9430A462AA73CC200767E1D /* UIViewController+Swizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Swizzling.h"; sourceTree = "<group>"; };
 		D9430A472AA73CC200767E1D /* UIViewController+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Swizzling.m"; sourceTree = "<group>"; };
+		D9FE7C212AA7B5E200C0B6CE /* PTSignaturesManager+Swizzling.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PTSignaturesManager+Swizzling.h"; sourceTree = "<group>"; };
+		D9FE7C222AA7B5E200C0B6CE /* PTSignaturesManager+Swizzling.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PTSignaturesManager+Swizzling.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +77,8 @@
 				CE0885F820E2CACB00AB7A9B /* RNTPTPDFViewCtrlManager.m */,
 				CE0885F420E2CAB100AB7A9B /* RNTPTPDFViewCtrl.h */,
 				CE0885F520E2CAB100AB7A9B /* RNTPTPDFViewCtrl.m */,
+				D9FE7C212AA7B5E200C0B6CE /* PTSignaturesManager+Swizzling.h */,
+				D9FE7C222AA7B5E200C0B6CE /* PTSignaturesManager+Swizzling.m */,
 				CE0885F120E2CA1300AB7A9B /* RNTPTDocumentViewManager.h */,
 				CE0885F220E2CA1300AB7A9B /* RNTPTDocumentViewManager.m */,
 				CE0885EE20E2C9F400AB7A9B /* RNTPTDocumentView.h */,
@@ -145,6 +150,7 @@
 			files = (
 				D30BB17922EFA8D000D90D24 /* RNTPTDocumentViewModule.m in Sources */,
 				CE0885F020E2C9F400AB7A9B /* RNTPTDocumentView.m in Sources */,
+				D9FE7C232AA7B5E200C0B6CE /* PTSignaturesManager+Swizzling.m in Sources */,
 				B3E7B58A1CC2AC0600A0062D /* RNPdftron.m in Sources */,
 				CE0885F320E2CA1300AB7A9B /* RNTPTDocumentViewManager.m in Sources */,
 				CE0885F920E2CACB00AB7A9B /* RNTPTPDFViewCtrlManager.m in Sources */,
