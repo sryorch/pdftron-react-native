@@ -6355,6 +6355,20 @@ NS_ASSUME_NONNULL_END
     }
 }
 
+- (void)appendPDFToDocument:(NSString *)sourceDocPath
+{
+    if (self.documentViewController) {
+        PTPDFDoc *pdfDoc = self.documentViewController.pdfViewCtrl.GetDoc;
+        PTPDFDoc *sourceDoc = [[PTPDFDoc alloc] initWithFilepath:sourceDocPath];
+
+        [pdfDoc InsertPages:[pdfDoc GetPageCount]
+                           src_doc:sourceDoc
+                           start_page:1
+                           end_page:[sourceDoc GetPageCount]
+                           flag:e_ptinsert_none];
+    }
+}
+
 - (void)setFormFieldHighlightColor:(NSDictionary *)fieldHighlightColor
 {
     PTPDFViewCtrl *pdfViewCtrl = _documentViewController.pdfViewCtrl;
