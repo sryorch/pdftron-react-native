@@ -2047,7 +2047,7 @@ RCT_CUSTOM_VIEW_PROPERTY(signatureTypes, NSArray, RNTPTDocumentView)
 {
     RNTPTDocumentView *documentView = self.documentViews[tag];
     if (documentView) {
-        [documentView appendPDF:sourceDocPath];
+        [documentView appendPDFToDocument:sourceDocPath];
     } else {
         @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"Unable to append PDF" userInfo:nil];
     }

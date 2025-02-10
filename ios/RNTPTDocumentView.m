@@ -6357,15 +6357,15 @@ NS_ASSUME_NONNULL_END
 
 - (void)appendPDFToDocument:(NSString *)sourceDocPath
 {
-    if (self.documentController) {
-        PTPDFDoc *pdfDoc = self.documentController.pdfViewCtrl.doc;
+    if (self.documentViewController) {
+        PTPDFDoc *pdfDoc = self.documentViewController.pdfViewCtrl.GetDoc;
         PTPDFDoc *sourceDoc = [[PTPDFDoc alloc] initWithFilepath:sourceDocPath];
 
-        [pdfDoc insertPages: pdfDoc
-                    srcDoc: sourceDoc
-                    startPage: 1
-                    endPage:sourceDoc.pageCount
-                    destPage:pdfDoc.pageCount];
+        [pdfDoc InsertPages:[pdfDoc GetPageCount]
+                           src_doc:sourceDoc
+                           start_page:1
+                           end_page:[sourceDoc GetPageCount]
+                           flag:e_ptinsert_none];
     }
 }
 
