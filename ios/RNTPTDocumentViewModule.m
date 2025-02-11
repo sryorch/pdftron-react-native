@@ -1478,6 +1478,21 @@ RCT_REMAP_METHOD(searchText,
     }
 }
 
+RCT_REMAP_METHOD(appendPDFToDocument,
+                 appendPDFToDocument:(NSNumber * _Nonnull)tag
+                 sourceDocPath:(NSString * _Nonnull)sourceDocPath
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        [[self documentViewManager] appendPDFToDocument:tag sourceDocPath:sourceDocPath];
+        resolve(nil);
+    }
+    @catch (NSException *exception) {
+        reject(@"append_pdf", @"Failed to append PDF", [self errorFromException:exception]);
+    }
+}
+
 RCT_REMAP_METHOD(setSignaturesHighlightColor,
                  setSignaturesHighlightColorForDocumentViewTag:(nonnull NSNumber *)tag
                  signatureHighlightColor:(NSDictionary *)signatureHighlightColor
