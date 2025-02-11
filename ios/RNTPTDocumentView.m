@@ -6358,16 +6358,22 @@ NS_ASSUME_NONNULL_END
 - (void)appendPDFToDocument:(NSString *)sourceDocPath
 {
     if (self.documentViewController) {
-        PTPDFDoc *pdfDoc = self.documentViewController.pdfViewCtrl.GetDoc;
-        PTPDFDoc *sourceDoc = [[PTPDFDoc alloc] initWithFilepath:sourceDocPath];
-
-        [pdfDoc InsertPages:[pdfDoc GetPageCount]
-                           src_doc:sourceDoc
-                           start_page:1
-                           end_page:[sourceDoc GetPageCount]
-                           flag:e_ptinsert_none];
+        PTPDFViewCtrl *pdfViewCtrl = self.documentViewController.pdfViewCtrl;
+        
+        [pdfViewCtrl DocLock:YES withBlock:^(PTPDFDoc * _Nullable doc) {
+            PTPDFDoc *sourceDoc = [[PTPDFDoc alloc] initWithFilepath:sourceDocPath];
+            
+            [doc InsertPages:([doc GetPageCount] + 1)
+                   src_doc:sourceDoc
+                start_page:1
+                  end_page:[sourceDoc GetPageCount]
+                     flag:e_ptinsert_none];
+            
+            [doc SaveToFile:doc.GetFileName flags:e_ptlinearized];
+        } error:nil];
     }
 }
+
 
 - (void)setFormFieldHighlightColor:(NSDictionary *)fieldHighlightColor
 {
